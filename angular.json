@@ -109,5 +109,8 @@
       }
     }
   },
-  "defaultProject": "toolbar"
+  "defaultProject": "toolbar",
+  "cli": {
+    "analytics": false
+  }
 }
