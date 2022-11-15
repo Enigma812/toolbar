@@ -1,16 +1,27 @@
 <section>
-    <mat-toolbar color="primary">
-      <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
+  <mat-toolbar color="primary">
+    <div class="toolbar--right">
+      <button class="btn" (click)="openStaticBackdrop(content)">
+        <mat-icon class="btn__icon-menu">menu</mat-icon>
       </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>Выбор языка интерфейса</button>
-        <button mat-menu-item>Выбор курса</button>
-      </mat-menu>
-      <span>Изучение языков</span>
-      <span class="example-spacer"></span>
-      <button mat-icon-button class="example-icon account-icon" aria-label="Example icon-button with account_circle icon">
-        <mat-icon>account_circle</mat-icon>
-      </button>
-    </mat-toolbar>
+      <span class="header">Изучение языков</span>
+    </div>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Выбор языка интерфейса</button>
+      <button mat-menu-item>Выбор курса</button>
+    </mat-menu>
+  </mat-toolbar>
 </section>
+
+<ng-template #content let-offcanvas>
+  <div class="offcanvas-header">
+    <h4 class="offcanvas-title">Выбрать урок</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p>Урок 1&hellip;</p>
+  </div>
+</ng-template>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
+import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'toolbar';
+
+  constructor(private offcanvasService: NgbOffcanvas) {}
+
+  openStaticBackdrop(content: TemplateRef<any>) {
+		this.offcanvasService.open(content, { backdrop: 'static' });
+	}
 }
