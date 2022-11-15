@@ -32,9 +32,19 @@
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <div class="offcanvas-body" [ngClass]="{canvasNoAvtive:shown}">
+  <div class="offcanvas-body">
     <a class="btn btn-lg btn-outline-primary lesson">Урок № 1</a>
     <a class="btn btn-lg btn-outline-primary lesson">Урок № 2</a>
     <a class="btn btn-lg btn-outline-primary lesson">Урок № 3</a>
   </div>
+
+  <!-- <div *ngIf="lesson; then show else hide"></div>
+
+  <ng-template #show class="offcanvas-body">
+    <a class="btn btn-lg btn-outline-primary lesson">Урок № 1</a>
+    <a class="btn btn-lg btn-outline-primary lesson">Урок № 2</a>
+    <a class="btn btn-lg btn-outline-primary lesson">Урок № 3</a>
+  </ng-template>
+
+  <ng-template #hide></ng-template> -->
 </ng-template>
