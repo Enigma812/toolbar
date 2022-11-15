@@ -2,7 +2,7 @@
   flex: 1 1 auto;
 }
 
-.toolbar--right {
+.toolbar-right {
   display: flex;
   gap: 16px
 }
@@ -26,4 +26,10 @@
 .mat-toolbar-single-row {
   justify-content: space-between;
   height: 45px;
+}
+
+.mat-button{
+ padding: 0;
+ min-width: 40px;
+ line-height: 45px;
 }

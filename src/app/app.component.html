@@ -1,20 +1,29 @@
 <section>
   <mat-toolbar color="primary">
-    <div class="toolbar--right">
+    <div class="toolbar-right">
       <button class="btn" (click)="openStaticBackdrop(content)">
         <mat-icon class="btn__icon-menu">menu</mat-icon>
       </button>
       <span class="header">Изучение языков</span>
     </div>
-    <button mat-button [matMenuTriggerFor]="menu">
-      <mat-icon>account_circle</mat-icon>
-    </button>
+    <div>
+      <button mat-button [routerLink]="['/']">
+        <mat-icon>home</mat-icon>
+      </button>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Выбор языка интерфейса</button>
-      <button mat-menu-item>Выбор курса</button>
+      <a mat-menu-item [routerLink]="['account']">Смена пользователя</a>
+      <a mat-menu-item>Выбор курса</a>
+      <a mat-menu-item>Изменить языка интерфейса</a>
     </mat-menu>
   </mat-toolbar>
 </section>
+<main class="body--main">
+  <router-outlet></router-outlet>
+</main>
 
 <ng-template #content let-offcanvas>
   <div class="offcanvas-header">
