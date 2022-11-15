@@ -8,6 +8,7 @@ import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent {
   title = 'toolbar';
+  shown = false;
 
   constructor(private offcanvasService: NgbOffcanvas) {}
 
