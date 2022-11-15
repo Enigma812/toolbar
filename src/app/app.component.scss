@@ -17,10 +17,19 @@
   padding: 0;
   margin: 0;
   color: white;
+  background-color: #3f51b5;
 
   &__icon-menu {
     font-size: 32px;
   }
+}
+
+.lesson {
+  width: 250px;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: rgb(197, 197, 197);
+  color: black;
 }
 
 .mat-toolbar-single-row {
@@ -32,4 +41,22 @@
  padding: 0;
  min-width: 40px;
  line-height: 45px;
+ color: white;
+}
+
+
+.offcanvas-header {
+  background-color: #3f51b5;
+}
+
+.offcanvas-title {
+  margin: 0;
+  font-size: 22px;
+  color: white;
+}
+
+.btn-close {
+  border: 0;
+  margin: none;
+  color: white;
 }
