@@ -13,6 +13,6 @@ export class AppComponent {
   constructor(private offcanvasService: NgbOffcanvas) {}
 
   openStaticBackdrop(content: TemplateRef<any>) {
-		this.offcanvasService.open(content, { backdrop: 'static' });
+		this.offcanvasService.open(content, { backdrop: 'static', panelClass: 'offcanvas-panel' });
 	}
 }

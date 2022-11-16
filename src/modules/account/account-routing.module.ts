@@ -6,9 +6,6 @@ const routes: Routes = [
   {
     path: '', component: AccountComponent
   },
-  {
-    path: 'start', loadChildren: () => import('../start/start.module').then(m => m.StartModule)
-  },
 ];
 
 @NgModule({

@@ -37,13 +37,19 @@
   height: 45px;
 }
 
-.mat-button{
- padding: 0;
- min-width: 40px;
- line-height: 45px;
- color: white;
+.mat-button {
+  padding: 0;
+  min-width: 40px;
+  line-height: 45px;
+  color: white;
 }
 
+
+::ng-deep {
+  .offcanvas-panel {
+    width: 284px !important;
+  }
+}
 
 .offcanvas-header {
   background-color: #3f51b5;
