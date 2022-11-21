@@ -1,4 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -7,12 +8,18 @@ import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'toolbar';
-  lesson = true;
+  public title = 'toolbar';
 
-  constructor(private offcanvasService: NgbOffcanvas) {}
+  constructor(
+    private offcanvasService: NgbOffcanvas,
+    private router: Router
+  ) {}
+
+  public isStart(): boolean {
+    return this.router.url.includes('start');
+  }
 
   openStaticBackdrop(content: TemplateRef<any>) {
-		this.offcanvasService.open(content, { backdrop: 'static', panelClass: 'offcanvas-panel' });
-	}
+    this.offcanvasService.open(content, { backdrop: 'static', panelClass: 'offcanvas-panel' });
+  }
 }
