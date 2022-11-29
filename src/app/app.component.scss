@@ -42,12 +42,16 @@
   min-width: 40px;
   line-height: 45px;
   color: white;
+  background-color: #3f51b5;
 }
-
 
 ::ng-deep {
   .offcanvas-panel {
     width: 284px !important;
+  }
+
+  .mat-menu-content {
+    background-color: white;
   }
 }
 
