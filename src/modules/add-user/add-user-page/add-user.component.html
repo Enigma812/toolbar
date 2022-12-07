@@ -1,0 +1,31 @@
+<form [formGroup]="formUser" class="input">
+    <div class="input__name">
+        <label for="typeahead-basic" class="input__name__label">Введите имя</label>
+        <input id="typeahead-basic" type="text" [formControlName]="'firstName'" class="form-control" />
+    </div>
+
+    <div class="input__name">
+        <label for="typeahead-basic" class="input__name__label">Придумайте логин</label>
+        <input id="typeahead-basic" type="text" [formControlName]="'newLogin'" class="form-control" />
+    </div>
+    <div class="input__name">
+        <label for="typeahead-basic" class="input__name__label">Придумайте пароль</label>
+        <input id="typeahead-basic" type="text" [formControlName]="'newPassword'" class="form-control" />
+    </div>
+
+    <div class="input__name">
+        <label for="typeahead-basic" class="input__name__label">Выберите родной язык</label>
+        <select class="form-select" formControlName="nativeLanguage">
+            <option value="1">Русский</option>
+        </select>
+    </div>
+    <div class="input__name">
+        <label for="typeahead-basic" class="input__name__label">Выберите язык для изучения</label>
+        <select class="form-select" [formControlName]="'studingLanguage'">
+            <option value="1">English</option>
+            <option value="2">Espanol</option>
+        </select>
+    </div>
+
+    <button type="button" (click)="onClick()" class="btn btn-primary">Добавить пользователя</button>
+</form>

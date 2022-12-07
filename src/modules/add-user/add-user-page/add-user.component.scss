@@ -1,0 +1,23 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+
+    &__name {
+        margin-bottom: 20px;
+    }
+}
+
+.form-control {
+    width: 450px;
+}
+
+.form-select {
+    width: 450px;
+}
+
+.btn {
+    background-color: #3f51b5;
+    border-color: #3f51b5;
+}

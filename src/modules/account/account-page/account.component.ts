@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AnimationDurations } from '@angular/material/core';
 import { Router } from '@angular/router';
 
 interface LoginForm {
