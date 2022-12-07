@@ -1,13 +1,13 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AccountService } from '../../../app/account.service';
 
 interface FormUser {
   firstName: FormControl<string | null>;
   newLogin: FormControl<string | null>;
   newPassword: FormControl<string | null>;
-  nativeLanguage: FormControl<string | null>;
-  studingLanguage: FormControl<string | null>;
+  nativeLanguage: FormControl<number | null>;
+  studingLanguage: FormControl<number | null>;
 }
 
 @Component({
@@ -17,23 +17,12 @@ interface FormUser {
 })
 export class AddUserComponent {
 
-  @Output() 
-  public login: EventEmitter<string> = new EventEmitter();
-  
-  @Output() 
-  public password: EventEmitter<string> = new EventEmitter();
-
   public formUser: FormGroup<FormUser>;
 
-  constructor() {
+  constructor(
+    private readonly _accountService: AccountService
+  ) {
     this.formUser = this.createForm();
-    this.formUser.setValue({
-      firstName: '',
-      newLogin: '',
-      newPassword: '',
-      nativeLanguage: '',
-      studingLanguage: '',
-    });
   }
 
 
@@ -42,8 +31,8 @@ export class AddUserComponent {
       firstName: new FormControl<string>(''),
       newLogin: new FormControl<string>(''),
       newPassword: new FormControl<string>(''),
-      nativeLanguage: new FormControl<string>(''),
-      studingLanguage: new FormControl<string>('')
+      nativeLanguage: new FormControl<number>(0),
+      studingLanguage: new FormControl<number>(0)
     });
     return newUser;
   }
@@ -56,9 +45,9 @@ export class AddUserComponent {
       const nativeLanguage = this.formUser.value.nativeLanguage;
       const studingLanguage = this.formUser.value.studingLanguage;
       
-      if ((newLogin !== null && undefined) && (newPassword !== null && undefined)) {
-        this.login.emit(newLogin);
-        this.password.emit(newPassword);
+      if ((newLogin !== null && newLogin !== undefined) && (newPassword !== null && newPassword !== undefined)) {
+        this._accountService.newLogin = newLogin;
+        this._accountService.newPassword = newPassword;
       }
     }
   }

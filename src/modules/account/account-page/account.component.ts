@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AccountService } from '../../../app/account.service';
 
 interface LoginForm {
   login: FormControl<string | null>;
@@ -17,7 +18,8 @@ export class AccountComponent {
   public form: FormGroup<LoginForm>;
 
   constructor(
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _accountService: AccountService
   ) { 
     this.form = this.createForm();
     this.form.setValue({                   // передача информации на html в обратную сторону
@@ -34,7 +36,7 @@ export class AccountComponent {
       const login = this.form.value.login;
       const password = this.form.value.password;
 
-      if (login === 'admin' && password === '123') {
+      if (login === this._accountService.newLogin && password === this._accountService.newPassword) {
         this._router.navigate(['/start']);
       } else {
         this.form.setErrors({

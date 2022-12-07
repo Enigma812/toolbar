@@ -7,10 +7,10 @@
       <span class="header">Изучение языков</span>
     </div>
     <div>
-      <button mat-button [routerLink]="'/'">
+      <button mat-icon-button [routerLink]="'/'">
         <mat-icon>home</mat-icon>
       </button>
-      <button mat-button [matMenuTriggerFor]="menu">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>account_circle</mat-icon>
       </button>
     </div>
@@ -29,8 +29,8 @@
 <ng-template #content let-offcanvas>
   <div class="offcanvas-header">
     <h4 class="offcanvas-title">Выбрать урок</h4>
-    <button mat-button (click)="offcanvas.dismiss('Cross click')">
-      <mat-icon>close</mat-icon>
+    <button mat-icon-button (click)="offcanvas.dismiss('Cross click')">
+      <mat-icon class="color__icon">close</mat-icon>
     </button>
   </div>
   <!-- <div class="offcanvas-body">
