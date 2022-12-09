@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from '../../../app/account.service';
+import { AccountService } from '../account.service';
 
 interface LoginForm {
   login: FormControl<string | null>;
@@ -10,10 +10,10 @@ interface LoginForm {
 
 @Component({
   selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class AccountComponent {
+export class LoginComponent {
 
   public form: FormGroup<LoginForm>;
 

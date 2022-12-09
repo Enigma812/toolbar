@@ -7,9 +7,6 @@ const routes: Routes = [
   },
   {
     path: 'start', loadChildren: () => import('../modules/start/start.module').then(m => m.StartModule)
-  },
-  {
-    path: 'add-user', loadChildren: () => import('../modules/add-user/add-user.module').then(m => m.AddUserModule)
   }
 ];
 

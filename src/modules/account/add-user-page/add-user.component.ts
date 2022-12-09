@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AccountService } from '../../../app/account.service';
+import { AccountService } from '../account.service';
 
 interface FormUser {
-  firstName: FormControl<string | null>;
-  newLogin: FormControl<string | null>;
-  newPassword: FormControl<string | null>;
-  nativeLanguage: FormControl<number | null>;
-  studingLanguage: FormControl<number | null>;
+  firstName: FormControl<string>;
+  newLogin: FormControl<string>;
+  newPassword: FormControl<string>;
+  nativeLanguage: FormControl<number>;
+  studingLanguage: FormControl<number>;
 }
 
 @Component({
@@ -28,11 +28,11 @@ export class AddUserComponent {
 
   public createForm(): FormGroup<FormUser> {
     const newUser = new FormGroup<FormUser>({
-      firstName: new FormControl<string>(''),
-      newLogin: new FormControl<string>(''),
-      newPassword: new FormControl<string>(''),
-      nativeLanguage: new FormControl<number>(0),
-      studingLanguage: new FormControl<number>(0)
+      firstName: new FormControl<string>('', { nonNullable: true }),
+      newLogin: new FormControl<string>('', { nonNullable: true }),
+      newPassword: new FormControl<string>('', { nonNullable: true }),
+      nativeLanguage: new FormControl<number>(0, { nonNullable: true }),
+      studingLanguage: new FormControl<number>(0, { nonNullable: true })
     });
     return newUser;
   }
@@ -48,6 +48,7 @@ export class AddUserComponent {
       if ((newLogin !== null && newLogin !== undefined) && (newPassword !== null && newPassword !== undefined)) {
         this._accountService.newLogin = newLogin;
         this._accountService.newPassword = newPassword;
+        this.formUser.reset();
       }
     }
   }
