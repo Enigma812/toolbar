@@ -44,12 +44,10 @@ export class AddUserComponent {
       const newPassword = this.formUser.value.newPassword;
       const nativeLanguage = this.formUser.value.nativeLanguage;
       const studingLanguage = this.formUser.value.studingLanguage;
-      
-      if ((newLogin !== null && newLogin !== undefined) && (newPassword !== null && newPassword !== undefined)) {
-        this._accountService.newLogin = newLogin;
-        this._accountService.newPassword = newPassword;
-        this.formUser.reset();
-      }
+      this.formUser.reset();
+      // if ((newLogin !== null && newLogin !== undefined) && (newPassword !== null && newPassword !== undefined)) {
+      //   this._accountService.newLogin = newLogin;
+      //   this._accountService.newPassword = newPassword;}
     }
   }
 }

@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { AccountService } from '../account.service';
 
 interface LoginForm {
-  login: FormControl<string | null>;
-  password: FormControl<string | null>;
+  login: FormControl<string>;
+  password: FormControl<string>;
 }
 
 @Component({
@@ -33,10 +33,11 @@ export class LoginComponent {
 
   public onClick(): void {
     if (this.form.valid) {
-      const login = this.form.value.login;
-      const password = this.form.value.password;
+      const login = this.form.getRawValue().login;
+      const password = this.form.getRawValue().password;
 
-      if (login === this._accountService.newLogin && password === this._accountService.newPassword) {
+      if (this.findAccount(login, password)) {
+        this._accountService.isAuthorized = true;
         this._router.navigate(['/start']);
       } else {
         this.form.setErrors({
@@ -54,13 +55,20 @@ export class LoginComponent {
 
   private createForm(): FormGroup<LoginForm> {
     const form = new FormGroup<LoginForm>({
-      login: new FormControl<string>('', [
-        Validators.required
-      ]),
-      password: new FormControl<string>('', [
-        Validators.required
-      ]),
+      login: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [ Validators.required ]
+      }),
+      password: new FormControl<string>('', {
+        nonNullable: true,
+        validators: [ Validators.required ]
+      }),
     });
     return form;
+  }
+
+  private findAccount(login: string, password: string): boolean {
+    const found = this._accountService.accounts.find((account) => account.login === login && account.password === password);
+    return found !== undefined
   }
 }

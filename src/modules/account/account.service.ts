@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Account, adminAccount } from './models/account.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AccountService {
 
-  public newLogin: string = '';
-  public newPassword: string = '';
+  public isAuthorized: boolean;
+  public accounts: Account[];
 
-  constructor() { }
+  constructor() { 
+    this.isAuthorized = false;
+    this.accounts = [adminAccount];
+   }
 }

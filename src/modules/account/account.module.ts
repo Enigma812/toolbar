@@ -6,7 +6,6 @@ import { LoginComponent } from './login-page/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddUserComponent } from './add-user-page/add-user.component';
 import { AccountPageComponent } from './account-page/account-page.component';
-import { AccountService } from './account.service';
 
 
 @NgModule({
@@ -20,9 +19,6 @@ import { AccountService } from './account.service';
     ReactiveFormsModule,
     
     AccountRoutingModule
-  ],
-  providers: [
-    AccountService
   ]
 })
 export class AccountModule { }

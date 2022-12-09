@@ -1,7 +1,7 @@
 <section>
   <mat-toolbar color="primary">
     <div class="toolbar-right">
-      <button class="btn" (click)="openStaticBackdrop(content)">
+      <button *ngIf="accountService.isAuthorized" class="btn" (click)="openStaticBackdrop(content)">
         <mat-icon class="btn__icon-menu">menu</mat-icon>
       </button>
       <span class="header">Изучение языков</span>
@@ -15,7 +15,8 @@
       </button>
     </div>
     <mat-menu #menu="matMenu">
-      <a mat-menu-item [routerLink]="'/account'">Войти</a>
+      <a *ngIf="!accountService.isAuthorized" mat-menu-item [routerLink]="'/account'">Войти</a>
+      <butoon *ngIf="accountService.isAuthorized" mat-menu-item (click)="logOff()" >Выйти</butoon>
       <a mat-menu-item [routerLink]="'/account/add-user'">Добавить пользователя</a>
       <a mat-menu-item>Изменить языка интерфейса</a>
     </mat-menu>
@@ -32,21 +33,8 @@
       <mat-icon class="color__icon">close</mat-icon>
     </button>
   </div>
-  <!-- <div class="offcanvas-body">
+  <div class="offcanvas-body">
     <a class="btn btn-lg btn-outline-primary lesson">Урок № 1</a>
     <a class="btn btn-lg btn-outline-primary lesson">Урок № 2</a>
     <a class="btn btn-lg btn-outline-primary lesson">Урок № 3</a>
-  </div> -->
-
-  <div *ngIf="isStart(); then show else hide"></div>
-
-  <ng-template #show>
-    <div class="offcanvas-body">
-      <a class="btn btn-lg btn-outline-primary lesson">Урок № 1</a>
-      <a class="btn btn-lg btn-outline-primary lesson">Урок № 2</a>
-      <a class="btn btn-lg btn-outline-primary lesson">Урок № 3</a>
-    </div>
-  </ng-template>
-
-  <ng-template #hide></ng-template>
-</ng-template>
+  </div>
