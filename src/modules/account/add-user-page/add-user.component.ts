@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AccountService } from '../account.service';
 
 interface FormUser {
@@ -21,7 +22,8 @@ export class AddUserComponent {
   public completed = false;
 
   constructor(
-    // private readonly _accountService: AccountService
+    private readonly _accountService: AccountService,
+    private readonly _router: Router
   ) {
     this.formUser = this.createForm();
   }
@@ -47,10 +49,11 @@ export class AddUserComponent {
       const studingLanguage = this.formUser.value.studingLanguage;
       this.formUser.reset();
       this.completed = true;
-      setTimeout(() => {this.completed = false}, 3000);
-      // if ((newLogin !== null && newLogin !== undefined) && (newPassword !== null && newPassword !== undefined)) {
+      setTimeout(() => {this.completed = false, this._router.navigate(['/account/login'])}, 2000);
+        // if ((newLogin !== null && newLogin !== undefined) && (newPassword !== null && newPassword !== undefined)) {
       //   this._accountService.newLogin = newLogin;
       //   this._accountService.newPassword = newPassword;}
+      // }
     }
   }
 }

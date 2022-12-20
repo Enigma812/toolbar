@@ -16,7 +16,7 @@
     </div>
     <mat-menu #menu="matMenu">
       <a *ngIf="!accountService.isAuthorized" mat-menu-item [routerLink]="'/account'">Войти</a>
-      <butoon *ngIf="accountService.isAuthorized" mat-menu-item (click)="logOff()" >Выйти</butoon>
+      <butoon *ngIf="accountService.isAuthorized" mat-menu-item (click)="logOff()">Выйти</butoon>
       <a mat-menu-item [routerLink]="'/account/add-user'">Добавить пользователя</a>
       <a mat-menu-item>Изменить языка интерфейса</a>
     </mat-menu>
@@ -34,6 +34,9 @@
     </button>
   </div>
   <div class="offcanvas-body">
+    <a class="btn btn-lg btn-outline-primary lesson check" 
+      (click)="offcanvas.dismiss()"
+      [routerLink]="'/start/knowledge-check'">Проверить уровень знаний</a>
     <a class="btn btn-lg btn-outline-primary lesson">Урок № 1</a>
     <a class="btn btn-lg btn-outline-primary lesson">Урок № 2</a>
     <a class="btn btn-lg btn-outline-primary lesson">Урок № 3</a>

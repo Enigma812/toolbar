@@ -1,0 +1,52 @@
+<form [formGroup]="formCheck" class="check">
+    <div class="check__block">
+        <img class="check__block__img" src="../../../assets/png/apple.jpg" />
+        <div class="check__block__input">
+            <input type="text" class="form-control" 
+                [formControlName]="'apple'"
+                [ngClass]="{'valid': validApple, 'invalid': invalidApple}">
+        </div>
+        <div *ngIf="answer" class="check__block__answer">Apple</div>
+    </div>
+
+    <div class="check__block">
+        <img class="check__block__img" src="../../../assets/png/table.jpg" />
+        <div class="check__block__input">
+            <input type="text" class="form-control"
+                [formControlName]="'table'"
+                [ngClass]="{'valid': validTable, 'invalid': invalidTable}">
+        </div>
+        <div *ngIf="answer" class="check__block__answer">Table</div>
+    </div>
+
+    <div class="check__block">
+        <img class="check__block__img" src="../../../assets/png/bear.jpg" />
+        <div class="check__block__input">
+            <input type="text" class="form-control"
+                [formControlName]="'bear'"
+                [ngClass]="{'valid': validBear, 'invalid': invalidBear}">
+        </div>
+        <div *ngIf="answer" class="check__block__answer">Bear</div>
+    </div>
+
+    <div class="check__block">
+        <img class="check__block__img" src="../../../assets/png/column.png" />
+        <div class="check__block__input">
+            <input type="text" class="form-control"
+                [formControlName]="'column'"
+                [ngClass]="{'valid': validColumn, 'invalid': invalidColumn}">
+        </div>
+        <div *ngIf="answer" class="check__block__answer">Column</div>
+    </div>
+
+    <div *ngIf="warning" class="check__warning">Необходимо заполнить все поля</div>
+
+    <div class="check__buttons">
+        <div class="check__buttons__button">
+            <button type="button" class="btn btn-primary" (click)="onCheck()">Проверить знания</button>
+        </div>
+        <div *ngIf="shownAnswerButton" class="check__buttons__button">
+            <button type="button" class="btn btn-primary" (click)="shownAnswer()">Показать правельные ответы</button>
+        </div>
+    </div>
+</form>

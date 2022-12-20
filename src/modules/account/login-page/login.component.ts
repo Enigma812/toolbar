@@ -38,7 +38,7 @@ export class LoginComponent {
 
       if (this.findAccount(login, password)) {
         this._accountService.isAuthorized = true;
-        this._router.navigate(['/start']);
+        this._router.navigate(['/start/intro']);
       } else {
         this.form.setErrors({
           invalid: {
