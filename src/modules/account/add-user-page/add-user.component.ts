@@ -18,9 +18,10 @@ interface FormUser {
 export class AddUserComponent {
 
   public formUser: FormGroup<FormUser>;
+  public completed = false;
 
   constructor(
-    private readonly _accountService: AccountService
+    // private readonly _accountService: AccountService
   ) {
     this.formUser = this.createForm();
   }
@@ -45,6 +46,8 @@ export class AddUserComponent {
       const nativeLanguage = this.formUser.value.nativeLanguage;
       const studingLanguage = this.formUser.value.studingLanguage;
       this.formUser.reset();
+      this.completed = true;
+      setTimeout(() => {this.completed = false}, 3000);
       // if ((newLogin !== null && newLogin !== undefined) && (newPassword !== null && newPassword !== undefined)) {
       //   this._accountService.newLogin = newLogin;
       //   this._accountService.newPassword = newPassword;}
