@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { answerValidator } from './answer.validator';
+import { emptyValidator } from './empty.validator';
 
 interface Check {
   apple: FormControl<string>;
@@ -35,56 +37,16 @@ export class KnowledgeCheckComponent {
 
   public createForm(): FormGroup<Check> {
     const checkForm = new FormGroup<Check>({
-      apple: new FormControl<string>('', { nonNullable: true }),
-      table: new FormControl<string>('', { nonNullable: true }),
-      bear: new FormControl<string>('', { nonNullable: true }),
-      column: new FormControl<string>('', { nonNullable: true }),
+      apple: new FormControl<string>('', { nonNullable: true, validators: [ emptyValidator(), answerValidator('Apple') ] }),
+      table: new FormControl<string>('', { nonNullable: true, validators: [ emptyValidator(), answerValidator('Table') ] }),
+      bear: new FormControl<string>('', { nonNullable: true, validators: [ emptyValidator(), answerValidator('Bear') ]  }),
+      column: new FormControl<string>('', { nonNullable: true, validators: [ emptyValidator(), answerValidator('Column') ]  }),
     });
     return checkForm
   }
 
   public onCheck() {
-    if (this.formCheck.valid) {
-      const apple = this.formCheck.value.apple;
-      const table = this.formCheck.value.table;
-      const bear = this.formCheck.value.bear;
-      const column = this.formCheck.value.column;
-      if (apple === 'Apple') {
-        this.validApple = true;
-      } else {
-        if (apple !== '' ) {
-          this.shownAnswerButton = true;
-        }
-        this.invalidApple = true;
-      };
-      if (table === 'Table') {
-        this.validTable = true;
-      } else {
-        if (table !== '' ) {
-          this.shownAnswerButton = true;
-        }
-        this.invalidTable = true;
-      };
-      if (bear === 'Bear') {
-        this.validBear = true;
-      } else {
-        if (bear !== '' ) {
-          this.shownAnswerButton = true;
-        }
-        this.invalidBear = true;
-      };
-      if (column === 'Column') {
-        this.validColumn = true;
-      } else {
-        if (column !== '' ) {
-          this.shownAnswerButton = true;
-        }
-        this.invalidColumn = true;
-      };
-      if (apple === '' && table === '' && bear === '' && column === '') {
-        this.warning = true;
-      };
-    }
+    if (this.formCheck.valid) {}
   }
 
   public shownAnswer(): void {

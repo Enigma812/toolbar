@@ -5,6 +5,12 @@
             <input type="text" class="form-control" 
                 [formControlName]="'apple'"
                 [ngClass]="{'valid': validApple, 'invalid': invalidApple}">
+                <span *ngIf="formCheck.controls.apple.errors?.['empty'] !== null">
+                    {{ formCheck.controls.apple.errors?.['empty'] }}
+                </span>
+                <span *ngIf="formCheck.controls.apple.errors?.['wrongAnswer'] !== null">
+                    {{ formCheck.controls.apple.errors?.['wrongAnswer'] }}
+                </span>
         </div>
         <div *ngIf="answer" class="check__block__answer">Apple</div>
     </div>
