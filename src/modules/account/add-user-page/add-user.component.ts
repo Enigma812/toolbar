@@ -49,11 +49,15 @@ export class AddUserComponent {
       const studingLanguage = this.formUser.value.studingLanguage;
       this.formUser.reset();
       this.completed = true;
+      this._accountService.add({
+        name: firstName ?? '',
+        login: newLogin  ?? '',
+        password: newPassword ?? '',
+        nativeLanguage: nativeLanguage ?? 0,
+        studingLanguage: studingLanguage ?? 0
+      })
       setTimeout(() => {this.completed = false, this._router.navigate(['/account/login'])}, 2000);
-        // if ((newLogin !== null && newLogin !== undefined) && (newPassword !== null && newPassword !== undefined)) {
-      //   this._accountService.newLogin = newLogin;
-      //   this._accountService.newPassword = newPassword;}
-      // }
+
     }
   }
 }

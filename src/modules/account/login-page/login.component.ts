@@ -36,8 +36,7 @@ export class LoginComponent {
       const login = this.form.getRawValue().login;
       const password = this.form.getRawValue().password;
 
-      if (this.findAccount(login, password)) {
-        this._accountService.isAuthorized = true;
+      if (this._accountService.login(login, password)) {
         this._router.navigate(['/start/intro']);
       } else {
         this.form.setErrors({
@@ -65,10 +64,5 @@ export class LoginComponent {
       }),
     });
     return form;
-  }
-
-  private findAccount(login: string, password: string): boolean {
-    const found = this._accountService.accounts.find((account) => account.login === login && account.password === password);
-    return found !== undefined
   }
 }
