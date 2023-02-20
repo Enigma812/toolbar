@@ -28,16 +28,24 @@ function business(money: number, carPrices: number[]): number {
 // После этого Дилли довольный возвращается домой.
 // Зная порядок, в котором Дилли нажимал на кнопки лифта, попробуйте определить общее количество этажей в доме Вилли и Дилли.
 
-function floors(bottoms: number[]): number {
-    let amountFloors: number = 0;
-    for (let i = 0; i < bottoms.length; i++) {
-        if (i === 1) {
-            amountFloors = amountFloors + 1;
+function floors(buttons: number[]): number {
+    let maxfloors = 1;
+    let currentFloor: number = 1;
+    for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i] === 1) {
+            currentFloor = currentFloor + 1;
+            if (currentFloor > maxfloors) {
+                maxfloors = currentFloor;
+            }
         } else {
-            amountFloors = amountFloors - 1;
+            currentFloor = currentFloor - 1;
+            if (currentFloor < 1) {
+                currentFloor = 1;
+                maxfloors += 1;
+            }
         }
     }
-    return amountFloors;
+    return maxfloors;
 }
 
 
@@ -54,11 +62,10 @@ interface Firm {
     duty: number;
 }
 
-function moreDuty(amountFirm: Firm[]): number {
-    let percent: number = 0;
+function moreDuty(firms: Firm[]): number {
     let maxPercent: number = 0;
-    for (let i = 0; i < amountFirm.length; i++) {
-        percent = amountFirm[i].income / 100 * amountFirm[i].duty;
+    for (let i = 0; i < firms.length; i++) {
+        const percent = firms[i].income / 100 * firms[i].duty;
         if (percent > maxPercent) {
             maxPercent = percent;
         }
@@ -74,20 +81,17 @@ function moreDuty(amountFirm: Firm[]): number {
 // Требуется определить, сколько времени ему придется простоять в очереди, и вообще обслужат ли его сегодня.
 
 function queue(numberAtQueue: number): [number, number] | string {
-    if (numberAtQueue > 145) {
+    const maxClients = 12 * 60 / 5;
+    if (numberAtQueue > maxClients) {
         return 'No';
     }
     let waitingMinutes: number = 0;
     let waitingHours: number = 0;
-    for (let i = 1; i <= numberAtQueue; i++) {
-        if (i !== 1) {
-            waitingMinutes = waitingMinutes + 5;
-            if (waitingMinutes === 60) {
-                waitingHours = waitingHours + 1;
-                waitingMinutes = 0;
-            }
-        } else {
-            return [waitingHours, waitingMinutes];
+    for (let i = 2; i <= numberAtQueue; i++) {
+        waitingMinutes = waitingMinutes + 5;
+        if (waitingMinutes === 60) {
+            waitingHours = waitingHours + 1;
+            waitingMinutes = 0;
         }
     }
     return [waitingHours, waitingMinutes];
@@ -107,6 +111,8 @@ function pizza(incision: number) {
     return amountSlices;
 }
 
+// медведь пиздец какой молодец!!!!
+
 
 // 6
 // На днях Иван у себя в прихожей выложил кафель, состоящий из квадратных черных и белых плиток. Прихожая Ивана имеет квадратную форму 4х4, 
@@ -115,21 +121,12 @@ function pizza(incision: number) {
 // По заданному расположению плиток в прихожей Ивана требуется определить: является ли выполненный узор симпатичным.
 // Входной файл INPUT.TXT содержит 4 строки по 4 символа «W» или «B» в каждой, описывающие узор из плиток.
 
-function converting(arr: string[][]): string[] {
-    let result: string[] = [];
-    for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
-            result.push(arr[i][j]);
-        }
-    }
-    return result;
-}
-
 function pattern(tiles: string[][]): string {
-    let convertinArr: string[] = converting(tiles);
-    for (let i = 0; i < convertinArr.length; i++) {
-        if (convertinArr[i] === convertinArr[i + 1] && convertinArr[i] === convertinArr[i + 4] && convertinArr[i] === convertinArr[i + 5]) {
-            return 'Ugly';
+    for (let i = 0; i < tiles.length - 1; i++) {
+        for (let j = 0; j < tiles[i].length - 1; j++) {
+            if (tiles[i][j] === tiles[i][j + 1] && tiles[i][j] === tiles[i + 1][j] && tiles[i][j] === tiles[i+ 1][j + 1]) {
+                return 'Ugly';
+            }
         }
     }
     return 'Beautiful';
@@ -144,10 +141,9 @@ function pattern(tiles: string[][]): string {
 function arrows(symbols: string): number {
     let amountArrow: number = 0;
     for (let i = 0; i < symbols.length; i++) {
-        if (symbols[i] === '-') {
-            if (symbols[i + 1] === '<' || symbols[i + 1] === '>') {
-                amountArrow = amountArrow + 1;
-            }
+        const test = symbols.slice(i, i + 5);
+        if (test === '>>-->' || test === '<--<<') {
+            amountArrow = amountArrow + 1;
         }
     }
     return amountArrow;
@@ -174,12 +170,14 @@ function equation(str: string): number {
         } else {
             result = Number(str[4]) + Number(str[0]);
         }
-    } else {
+    } else if (str[5] === 'x') {
         if (str[1] === '+') {
             result = Number(str[0]) + Number(str[2]);
         } else {
             result = Number(str[0]) - Number(str[2]);
         }
+    } else {
+        result = Number.NaN;
     }
     return result;
 }
@@ -189,8 +187,16 @@ function equation(str: string): number {
 // Выведите в выходной файл округленное до n знаков после десятичной точки число E. В данной задаче будем считать, что число Е в точности равно 2.7182818284590452353602875.
 
 function rounding(num: number): string {
-    const givenNum: number = 2.7182818284590452353602875;
-    return givenNum.toFixed(num);
+    const e: string = '2.7182818284590452353602875';
+    const test = e[num + 2];
+    const n = Number.parseInt(test, 10);
+    if (n < 5) {
+        return e.slice(0, num + 2);
+    } else {
+        const prevStr = e[num + 1];
+        const prevNumber = Number.parseInt(prevStr, 10);
+        return e.slice(0, num + 1) + (prevNumber + 1);
+    }
 }
 
 
@@ -205,11 +211,11 @@ function rounding(num: number): string {
 // с) количество абитуриентов, сдавших только физику.
 
 function exam(students: number, math: number, phys: number, fail: number): [number, number, number] {
-    const doneExam: number = students - fail;
-    const donePhys: number = doneExam - math;
-    const doneMath: number = doneExam - phys;
-    const doneAll: number = (donePhys + doneMath) - doneExam;
-    return [doneAll, doneMath, donePhys];
+    const anyExam: number = students - fail;
+    const onlyPhys: number = anyExam - math;
+    const onlyMath: number = anyExam - phys;
+    const doneAll: number = anyExam - (onlyPhys + onlyMath);
+    return [doneAll, onlyMath, onlyPhys];
 }
 
 // 11
@@ -223,8 +229,8 @@ function exam(students: number, math: number, phys: number, fail: number): [numb
 // Во входном файле INPUT.TXT содержится ровно 2 строки. В первой содержится слово «School» или «Home» в зависимости от того, где первый раз Вася купил карточку на X поездок. 
 // Во второй строке содержится натуральное число X, 1 ≤ X ≤ 1000.
 
-function roadCard(place: string, amountDrive: number): string {
-    if ((place === 'Home' && amountDrive % 2 === 0) || (place === 'School' && amountDrive % 2 !== 0)) {
+function roadCard(place: string, amountTrip: number): string {
+    if ((place === 'Home' && amountTrip % 2 === 0) || (place === 'School' && amountTrip % 2 !== 0) || amountTrip === 1) {
         return 'Yes';
     }
     return 'No';
@@ -246,9 +252,9 @@ interface Dates {
 }
 
 function debts(subjects: Dates[]): boolean {
-    const minLastDate: number = Math.min(subjects[length].lastDate);
-    const maxFirstDate: number = Math.max(subjects[length].firstDate);
-    return maxFirstDate < minLastDate || minLastDate > maxFirstDate;
+    const minLastDate: number = Math.min(...subjects.map((subject: Dates) => subject.lastDate));
+    const maxFirstDate: number = Math.max(...subjects.map((subject: Dates) => subject.firstDate));
+    return maxFirstDate <= minLastDate;
 }
 
 
@@ -259,11 +265,19 @@ function debts(subjects: Dates[]): boolean {
 // Первая строка входного файла INPUT.TXT содержит два числа: N и M (1 ≤ N, M ≤ 100). Последующие N строк описывают игровое поле - каждая из них содержит M символов. 
 // Символом «.» (точка) обозначена свободная клетка, символом «*» (звездочка) - занятая кораблем.
 
+function hasShip(field: string[][], y: number, x: number): boolean {
+    if (y < 0 || y >= field.length || x < 0 || x >= field[y].length) {
+        return false;
+    } else {
+        return field[y][x] === '*';
+    }
+}
+
 function seaWar(field: string[][]): number {
     let ships: number = 0;
     for (let i = 0; i < field.length; i++) {
-        for (let j = 0; j < field[i].length; i++) {
-            if (field[i][j - 1] !== '*' && field[i][j + 1] !== '*' && field[i + 1][j] !== '*' && field[i - 1][j] !== '*') {
+        for (let j = 0; j < field[i].length; j++) {
+            if (!hasShip(field, i, j - 1) && !hasShip(field, i, j + 1) && !hasShip(field, i + 1, j) && !hasShip(field, i - 1, j)) {
                 ships = ships + 1;
             }
         }
@@ -280,6 +294,7 @@ function lastNum(num: number, degree: number): number {
     const onDegree: number = Math.pow(num, degree);
     const arrNum: number[] = onDegree.toString(10).split('').map(int => parseInt(int, 10));
     return arrNum[length - 1];
+    // return onDegree % 10;
 }
 
 
@@ -290,24 +305,19 @@ function lastNum(num: number, degree: number): number {
 // Выходной файл OUTPUT.TXT должен содержать M примерно равных целых чисел, сумма которых должна быть равна N.
 
 function sum(num1: number, num2: number): number[] {
-    const element: number = Math.round(num1 / num2);
-    let process: number = 0;
-    let leftNum: number = 0;
+    const division: number = Math.floor(num1 / num2);
+    let remainder: number = num1 % num2;
     let sum: number[] = [];
-    for (let i = 1; i <= num2 / 2; i++) {
-        process = process + element;
-        leftNum = num1 - element;
+    for (let i = 0; i < num2; i++) {
+        let element = division;
+        if(i < num2 - remainder) {
+            element += 1;
+            remainder -= 1;
+        }
         sum.push(element);
     }
-    let element2: number = Math.floor(leftNum / (num2 / 2));
-    for (let j = 1; j <= leftNum; j++) {
-        if (j + 1 > element2) {
-            sum.push(element2 + 1);
-        } else {
-            sum.push(element2);
-        }
-    }
-    return sum.sort();
+
+    return sum.sort((a, b) => a - b);
 }
 
 
@@ -321,15 +331,15 @@ function sum(num1: number, num2: number): number[] {
 // В выходной файл OUTPUT.TXT выведите единственное целое число – максимальную суммарную стоимость сокровищ, которые Али-Баба может унести из пещеры.
 
 function AliBaba(aliBag: number, treasures: number[]): number {
-    let goodTreasures: number[] = [];
-    for (let i = 0; i < treasures.length; i++) {
-        if (treasures[i] > 0) {
-            goodTreasures.push(treasures[i]);
-        }
-    }
-    let sortGoodTreasures: number[] = goodTreasures.sort((a, b) => b - a);
+    // let goodTreasures: number[] = treasures.filter((treasure: number) => treasure > 0);
+    // for (let i = 0; i < treasures.length; i++) {
+    //     if (treasures[i] > 0) {
+    //         goodTreasures.push(treasures[i]);
+    //     }
+    // }
+    let sortGoodTreasures: number[] = treasures.filter((treasure: number) => treasure > 0).sort((a, b) => b - a);
     let sum: number = 0;
-    for (let j = 0; j < aliBag; j++) {
+    for (let j = 0; j < sortGoodTreasures.length && j < aliBag; j++) {
         sum = sum + sortGoodTreasures[j];
     }
     return sum;
@@ -349,23 +359,18 @@ function AliBaba(aliBag: number, treasures: number[]): number {
 // В выходной файл OUTPUT.TXT выведите целое число – количество набранных баллов.
 
 function carousel(answerTasks: number[]): number {
-    let scores: number = 0;
+    let reward: number = 3;
+    let scores: number = 3;
     let result: number = 0;
     for (let i = 0; i < answerTasks.length; i++) {
         if (answerTasks[i] === 1) {
-            scores = scores + 3;
-            result = result + scores;
-            if (answerTasks[i - 1] === 1) {
-                scores = scores + 1
-                result = result + scores;
+            result = result + reward;
+            reward = reward + 1;
+        } else {
+            if (reward - 3 < 3) {
+                reward = 3;
             } else {
-                if (scores - 3 > 3) {
-                    scores = scores - 3;
-                    result = result + scores;
-                } else {
-                    scores = 3;
-                    result = result + scores;
-                }
+                reward = reward - 3;
             }
         }
     }
@@ -384,23 +389,19 @@ function carousel(answerTasks: number[]): number {
 // В выходной файл OUTPUT.TXT выведите число ударов, которые необходимо нанести принцу, чтобы убить дракона, если это возможно. 
 // Если таким мечом убить дракона нельзя, то следует вывести «NO».
 
-function PrinceVsDragon(powerSword: number, amountHeads: number, regenerateHeads: number): number | string {
-    if (amountHeads - powerSword === 0) {
-        return 1;
-    }
-    const fight = (powerSword: number, amountHeads: number, regenerateHeads: number) => amountHeads - powerSword + regenerateHeads;
-    let leftHeads: number = fight(powerSword, amountHeads, regenerateHeads);
-    let strike: number = 1;
-    for (let i = 0; ; i++) {
-        if (leftHeads > 0 && leftHeads! >= amountHeads) {
-            strike = strike + 1;
-            leftHeads = fight(powerSword, leftHeads, regenerateHeads);
-        } else if (leftHeads <= 0) {
-            return strike;
-        } else {
+const fight = (powerSword: number, amountHeads: number, regenerateHeads: number) => amountHeads - powerSword > 0 ? amountHeads - powerSword + regenerateHeads : 0;
+    
+function princeVsDragon(powerSword: number, amountHeads: number, regenerateHeads: number): number | string {
+    let leftHeads: number = amountHeads;
+    let strike: number = 0;
+    do {
+        leftHeads = fight(powerSword, leftHeads, regenerateHeads);
+        strike = strike + 1;
+        if (leftHeads >= amountHeads) {
             return 'No';
         }
-    }
+    } while (leftHeads > 0);
+    return strike;
 }
 
 
@@ -418,20 +419,20 @@ interface Tent {
     capacity: number;
 }
 
-function tents(peopes: number, maxKg: number, tent: Tent[]): string {
-    if (tent[0].capacity + tent[1].capacity >= peopes && tent[0].kg + tent[1].kg <= maxKg) {
+function tents(peoples: number, maxKg: number, tent: Tent[]): string {
+    if (tent[0].capacity + tent[1].capacity >= peoples && tent[0].kg + tent[1].kg <= maxKg) {
         return 'Yes';
-    } else if (tent[0].capacity + tent[2].capacity >= peopes && tent[0].kg + tent[2].kg <= maxKg) {
+    } else if (tent[0].capacity + tent[2].capacity >= peoples && tent[0].kg + tent[2].kg <= maxKg) {
         return 'Yes';
-    } else if (tent[1].capacity + tent[2].capacity >= peopes && tent[1].kg + tent[2].kg <= maxKg) {
+    } else if (tent[1].capacity + tent[2].capacity >= peoples && tent[1].kg + tent[2].kg <= maxKg) {
         return 'Yes';
-    } else if (tent[0].capacity + tent[1].capacity + tent[2].capacity >= peopes && tent[0].kg + tent[1].kg + tent[2].kg <= maxKg) {
+    } else if (tent[0].capacity + tent[1].capacity + tent[2].capacity >= peoples && tent[0].kg + tent[1].kg + tent[2].kg <= maxKg) {
         return 'Yes';
     } else if (
-        (tent[0].capacity >= peopes && tent[0].kg <= maxKg) || 
-        (tent[1].capacity >= peopes && tent[1].kg <= maxKg) ||
-        (tent[2].capacity >= peopes && tent[2].kg <= maxKg)
-        ) {
+        (tent[0].capacity >= peoples && tent[0].kg <= maxKg) ||
+        (tent[1].capacity >= peoples && tent[1].kg <= maxKg) ||
+        (tent[2].capacity >= peoples && tent[2].kg <= maxKg)
+    ) {
         return 'Yes';
     } else {
         return 'No';
