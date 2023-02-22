@@ -462,3 +462,66 @@ function honeyForWinter(days: number, pot: number, eating: number): [string, num
     }
     return ['Yes', barrel];
 }
+
+// 21
+// Требуется написать программу, которая найдет наименьшее и наибольшее числа, состоящие из тех же цифр, что и заданное натуральное число N
+// Выходной файл OUTPUT.TXT должен содержать в одной строке наименьшее, а через пробел – наибольшее числа.
+
+function minAndMax(num: number): [number, number] {
+    const arrNum: number[] = num.toString().split('').map(int => parseInt(int, 10));
+    let sortArrNum: number[] = arrNum.sort();
+    if (sortArrNum[0] === 0) {
+        sortArrNum[0] = sortArrNum.splice(1, 1, sortArrNum[0])[0];
+    }
+    let result: number = +sortArrNum.join('');
+    return [result, num]
+}
+
+// 22
+// Три грибника Петя, Вася и Коля, возвращаясь из лесу домой, решили устроить привал, а заодно и перекусить. 
+// Как это у нас принято, через некоторое время каждый начал хвастаться своими сегодняшними успехами, а потом делиться найденными грибами со своими товарищами.
+// Изначально у каждого из них было некоторое целое количество грибов. Сначала Петя дал Васе и Коле по столько грибов, сколько у них уже было. Коля быстро понял, 
+// что так будет не по-братски, и дал Васе и Пете по столько грибов, сколько у них стало. Вася не мог отстать от сотоварищей и тоже дал каждому из друзей по столько грибов, 
+// сколько у них к этому моменту имелось. И тут друзья с удивлением обнаружили, что у всех стало грибов поровну.
+// Известно, что все вместе они собрали N грибов. Сколько грибов было у каждого из них перед привалом?
+// В выходной файл OUTPUT.TXT выведите три числа через пробел - первоначальное количество грибов у Пети, Васи и Коли соответственно. 
+// Предполагается, что ответ для данного N существует.
+
+function mushrooms(totalMushrooms: number): [number, number, number] {
+    const finalMusrooms: number = totalMushrooms / 3;
+    const vBeforeGive: number = finalMusrooms * 2;
+    const kBeforeTakeV: number = finalMusrooms / 2;
+    const pBeforeTakeV: number = finalMusrooms / 2;
+    const kBeforeGive: number = pBeforeTakeV / 2 + vBeforeGive / 2 + kBeforeTakeV;
+    const pBeforeTakek: number = pBeforeTakeV / 2;
+    const vBeforeTakeK: number = vBeforeGive / 2;
+    const pStart: number = pBeforeTakek + kBeforeGive / 2 + vBeforeTakeK / 2;
+    const kStart: number = kBeforeGive / 2;
+    const vStart: number = vBeforeTakeK / 2;
+    return [pStart, vStart, kStart];
+}
+
+// 23
+// Во время военного похода на морского пехотинца Джо было возложено ответственное задание – развести костёр и поддерживать в нём огонь ровно m минут. 
+// Для этого у Джо есть спички и n поленьев, причём Джо известно точное время сгорания каждого полена.
+// Джо разжигает огонь в момент времени t = 0 и сразу бросает в него одно или несколько поленьев. 
+// Затем он должен подбрасывать в огонь новые поленья, не позволяя костру угаснуть (т.е. если последнее полено в костре догорает в момент времени t, 
+// то новое полено может быть брошено в огонь не позднее t – 1). Поленья, брошенные в огонь, загораются мгновенно. Одновременно Джо может бросить в огонь 
+// любое количество поленьев. Джо должен бросить в огонь все n поленьев.
+// Помогите Джо определить, сможет ли он подбрасывать поленья в огонь таким образом, чтобы костер горел ровно m минут.
+// Первая строка входного файла INPUT.TXT содержит целые числа n и m (1 ≤ n ≤ 100, 1 ≤ m ≤ 1000) – количество поленьев и время, 
+// в течение которого Джо должен поддерживать огонь в костре. Вторая строка входного файла содержит n целых чисел a1, a2, ..., an, 
+// где ai (2 ≤ ai ≤ 1000) – время сгорания i-ого полена в минутах.
+// В выходной файл OUTPUT.TXT выведите строку «yes», если Джо сможет поддерживать огонь в костре ровно m минут, и строку «no» в противном случае.
+
+function bonfire(time: number, firewoods: number[]): string {
+    let wastedFirewoodsTime: number = 0;
+    const maxFirewoodTime: number = Math.max.apply(null, firewoods);
+    for (let i = 1; i < firewoods.length; i++) {
+        wastedFirewoodsTime = wastedFirewoodsTime + firewoods[i];
+    }
+    if (maxFirewoodTime > time || wastedFirewoodsTime < time) {
+        return 'no';
+    }
+    return 'Yes';
+}
